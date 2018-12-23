@@ -1,0 +1,16 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  body: Hi
+  external_key: john
+  chat: one
+
+two:
+  body: Hello
+  external_key: maria
+  chat: one
+
+three:
+  body: MyText
+  external_key: MyString
+  chat: two
