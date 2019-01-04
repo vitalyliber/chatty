@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 2018_12_23_021650) do
   create_table "chat_users", force: :cascade do |t|
     t.string "external_key"
     t.bigint "chat_id"
-    t.integer "unread_count"
+    t.integer "unread_count", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["chat_id"], name: "index_chat_users_on_chat_id"
