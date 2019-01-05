@@ -1,0 +1,16 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+maria:
+  name: maria
+  external_key: maria
+  online: false
+
+john:
+  name: john
+  external_key: john
+  online: false
+
+ron:
+  name: ron
+  external_key: ron
+  online: false
