@@ -26,6 +26,7 @@ class MessagesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create new chat and message" do
     assert_equal 3, Chat.count
+    assert_equal 3, ChatUser.count
     assert_equal 3, Message.count
     post messages_path,
          params: {
@@ -39,11 +40,13 @@ class MessagesControllerTest < ActionDispatch::IntegrationTest
          }
     assert_response :success
     assert_equal 4, Chat.count
+    assert_equal 5, ChatUser.count
     assert_equal 4, Message.count
   end
 
   test "should create new message for existing chat" do
     assert_equal 3, Chat.count
+    assert_equal 3, ChatUser.count
     assert_equal 3, Message.count
     post messages_path,
          params: {
@@ -57,6 +60,7 @@ class MessagesControllerTest < ActionDispatch::IntegrationTest
          }
     assert_response :success
     assert_equal 3, Chat.count
+    assert_equal 3, ChatUser.count
     assert_equal 4, Message.count
   end
 

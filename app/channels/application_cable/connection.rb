@@ -25,6 +25,7 @@ module ApplicationCable
       if not err
         user = User.find_or_create_by(external_key: json['user']['external_key'])
         user.update(name: json['user']['name']) if user.name != json['user']['name']
+        user.update(avatar_url: json['user']['avatar_url']) if user.avatar_url != json['user']['avatar_url']
         user
       else
         reject_unauthorized_connection

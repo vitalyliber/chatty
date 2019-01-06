@@ -30,8 +30,14 @@ class MessagesController < ApplicationController
     if chat.blank?
       chat = Chat.new(
           chat_users: [
-              ChatUser.new(external_key: chat_params[:sender_external_key]),
-              ChatUser.new(external_key: chat_params[:recipient_external_key]),
+              ChatUser.new(
+                  external_key: chat_params[:sender_external_key],
+                  user: User.find_or_create_by(external_key: chat_params[:sender_external_key])
+              ),
+              ChatUser.new(
+                  external_key: chat_params[:recipient_external_key],
+                  user: User.find_or_create_by(external_key: chat_params[:recipient_external_key]),
+              ),
           ]
       )
       chat.save!

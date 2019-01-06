@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_04_141940) do
+ActiveRecord::Schema.define(version: 2018_12_23_021650) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,10 +18,12 @@ ActiveRecord::Schema.define(version: 2019_01_04_141940) do
   create_table "chat_users", force: :cascade do |t|
     t.string "external_key"
     t.bigint "chat_id"
+    t.bigint "user_id"
     t.integer "unread_count", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["chat_id"], name: "index_chat_users_on_chat_id"
+    t.index ["user_id"], name: "index_chat_users_on_user_id"
   end
 
   create_table "chats", force: :cascade do |t|
@@ -41,11 +43,15 @@ ActiveRecord::Schema.define(version: 2019_01_04_141940) do
   create_table "users", force: :cascade do |t|
     t.string "external_key"
     t.string "name"
+    t.string "avatar_url"
     t.boolean "online", default: false
+    t.datetime "online_at", default: -> { "now()" }
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["external_key"], name: "index_users_on_external_key"
   end
 
   add_foreign_key "chat_users", "chats"
+  add_foreign_key "chat_users", "users"
   add_foreign_key "messages", "chats"
 end

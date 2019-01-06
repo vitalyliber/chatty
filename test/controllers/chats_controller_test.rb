@@ -5,9 +5,14 @@ class ChatsControllerTest < ActionDispatch::IntegrationTest
     Chat.destroy_all
     Chat.all
     populate = ->(n) {n.times do |el|
+      user = User.create!(
+          external_key: "user_#{el}",
+          name: "user_#{el}",
+          avatar_url: 'https://api-server.com/image.jpg'
+      )
       Chat.create!(chat_users: [
-          ChatUser.new(external_key: "user_#{el}"),
-          ChatUser.new(external_key: 'john')
+          ChatUser.new(external_key: "user_#{el}", user: user),
+          ChatUser.new(external_key: 'john', user: User.find_or_create_by(external_key: 'john'))
       ])
     end}
 

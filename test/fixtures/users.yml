@@ -4,13 +4,17 @@ maria:
   name: maria
   external_key: maria
   online: false
+  avatar_url: 'https://api-server.com/image.jpg'
 
 john:
   name: john
   external_key: john
   online: false
+  avatar_url: 'https://api-server.com/image.jpg'
+
 
 ron:
   name: ron
   external_key: ron
   online: false
+  avatar_url: 'https://api-server.com/image.jpg'

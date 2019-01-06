@@ -34,7 +34,7 @@ http_interactions:
       - quic=":443"; ma=2592000; v="44,43,39,35"
     body:
       encoding: UTF-8
-      string: '{"user": {"name": "John", "external_key":"john"}}'
+      string: '{"user": {"name": "John", "external_key":"john", "avatar_url": "https://api-server.com/image.jpg"}}'
     http_version:
   recorded_at: Fri, 04 Jan 2019 18:40:46 GMT
 recorded_with: VCR 4.0.0
