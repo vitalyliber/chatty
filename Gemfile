@@ -59,6 +59,7 @@ group :test do
   gem 'action-cable-testing'
   gem "vcr"
   gem "webmock"
+  gem 'n_plus_one_control'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -66,3 +67,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # A simple HTTP and REST client for Ruby, inspired by the Sinatra's microframework style of specifying actions: get, put, post, delete.
 gem 'rest-client'
+
+# A simpler and faster Jbuilder alternative.
+gem 'jb'

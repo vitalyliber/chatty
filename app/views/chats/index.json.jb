@@ -1,0 +1,10 @@
+json = {}
+json[:chats] = @chat_users.map do |chat_user|
+  opponent = chat_user.chat.chat_users.select {|el| el.external_key != params[:external_key]}[0]
+  {
+      external_key: opponent.external_key,
+      unread_count: opponent.unread_count,
+      updated_at: opponent.updated_at.iso8601
+  }
+end
+json

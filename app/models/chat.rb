@@ -1,6 +1,6 @@
 class Chat < ApplicationRecord
-  has_many :chat_users
-  has_many :messages
+  has_many :chat_users, dependent: :destroy
+  has_many :messages, dependent: :destroy
   validate :external_keys_must_uniq
 
   def external_keys_must_uniq
