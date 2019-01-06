@@ -3,10 +3,10 @@ class User < ApplicationRecord
   has_many :chat_users
 
   def appear
-    self.update(online: true)
+    self.update(online: true, online_at: Time.now)
   end
 
   def disappear
-    self.update(online: false)
+    self.update(online: false, online_at: Time.now)
   end
 end
