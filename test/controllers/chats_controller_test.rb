@@ -3,7 +3,6 @@ require 'test_helper'
 class ChatsControllerTest < ActionDispatch::IntegrationTest
   test "should get chats" do
     Chat.destroy_all
-    Chat.all
     populate = ->(n) {n.times do |el|
       user = User.create!(
           external_key: "user_#{el}",
@@ -20,7 +19,10 @@ class ChatsControllerTest < ActionDispatch::IntegrationTest
         populate: populate,
         scale_factors: [2, 5, 10]
     ) do
-      get chats_path, params: { external_key: 'john' }
+      get chats_path,
+          headers: {
+              Authorization: 'Bearer johnBearer'
+          }
     end
     assert_response :success
     assert_equal JSON.parse(body)['chats'].count, 10

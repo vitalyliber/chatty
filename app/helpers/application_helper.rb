@@ -20,4 +20,17 @@ module ApplicationHelper
       nil
     end
   end
+
+  def find_or_create_user(external_key)
+    user = User.find_by(external_key: external_key)
+    if user.blank?
+      user = User.new(
+          external_key: external_key,
+          name: 'Noname',
+          avatar_url: 'https://api-server.com/image.jpg'
+      )
+      user.save!
+      user
+    end
+  end
 end

@@ -5,9 +5,11 @@ class MessagesControllerTest < ActionDispatch::IntegrationTest
     get messages_path,
         params: {
             chat: {
-                sender_external_key: 'maria',
                 recipient_external_key: 'john'
             }
+        },
+        headers: {
+            Authorization: 'Bearer mariaBearer'
         }
     assert_response :success
     assert_equal 2, JSON.parse(body)['messages'].count
@@ -17,9 +19,11 @@ class MessagesControllerTest < ActionDispatch::IntegrationTest
     get messages_path,
         params: {
             chat: {
-                sender_external_key: 'jessy',
                 recipient_external_key: 'jessy'
             }
+        },
+        headers: {
+            Authorization: 'Bearer jessyBearer'
         }
     assert_response :bad_request
   end
@@ -28,20 +32,25 @@ class MessagesControllerTest < ActionDispatch::IntegrationTest
     assert_equal 3, Chat.count
     assert_equal 3, ChatUser.count
     assert_equal 3, Message.count
+    assert_equal 3, User.count
     post messages_path,
          params: {
              message: {
                  body: 'Hello'
              },
              chat: {
-                 sender_external_key: 'jessy',
                  recipient_external_key: 'alice'
              }
+         },
+         headers: {
+             Authorization: 'Bearer jessyBearer'
          }
     assert_response :success
+    assert User.find_by(external_key: 'alice').present?
     assert_equal 4, Chat.count
     assert_equal 5, ChatUser.count
     assert_equal 4, Message.count
+    assert_equal 5, User.count
   end
 
   test "should create new message for existing chat" do
@@ -54,9 +63,11 @@ class MessagesControllerTest < ActionDispatch::IntegrationTest
                  body: 'Hello'
              },
              chat: {
-                 sender_external_key: chat_users(:john).external_key,
                  recipient_external_key: chat_users(:maria).external_key
              }
+         },
+         headers: {
+             Authorization: 'Bearer johnBearer'
          }
     assert_response :success
     assert_equal 3, Chat.count

@@ -18,7 +18,7 @@ class MessagesController < ApplicationController
   def chat
     chat = ChatUser
                .where(external_key: [
-                   chat_params[:sender_external_key],
+                   current_user.external_key,
                    chat_params[:recipient_external_key]
                ])
                .select(:chat_id)
@@ -31,12 +31,12 @@ class MessagesController < ApplicationController
       chat = Chat.new(
           chat_users: [
               ChatUser.new(
-                  external_key: chat_params[:sender_external_key],
-                  user: User.find_or_create_by(external_key: chat_params[:sender_external_key])
+                  external_key: current_user.external_key,
+                  user: current_user
               ),
               ChatUser.new(
                   external_key: chat_params[:recipient_external_key],
-                  user: User.find_or_create_by(external_key: chat_params[:recipient_external_key]),
+                  user: find_or_create_user(chat_params[:recipient_external_key]),
               ),
           ]
       )
@@ -53,7 +53,7 @@ class MessagesController < ApplicationController
     params
         .require(:message)
         .permit(:body)
-        .try {|hash| hash.merge(external_key: chat_params[:sender_external_key])}
+        .try {|hash| hash.merge(external_key: current_user.external_key)}
   end
 
 end
