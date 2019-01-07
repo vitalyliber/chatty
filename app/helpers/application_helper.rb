@@ -24,6 +24,8 @@ module ApplicationHelper
   def find_or_create_user(external_key)
     user = User.find_by(external_key: external_key)
     if user.blank?
+      # this condition only for tests cases
+      # in real life this block will be unreachable
       user = User.new(
           external_key: external_key,
           name: 'Noname',
