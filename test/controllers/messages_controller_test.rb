@@ -63,7 +63,7 @@ class MessagesControllerTest < ActionDispatch::IntegrationTest
                  body: 'Hello'
              },
              chat: {
-                 recipient_external_key: chat_users(:maria).external_key
+                 recipient_external_key: users(:maria).external_key
              }
          },
          headers: {

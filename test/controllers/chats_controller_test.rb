@@ -10,8 +10,10 @@ class ChatsControllerTest < ActionDispatch::IntegrationTest
           avatar_url: 'https://api-server.com/image.jpg'
       )
       Chat.create!(chat_users: [
-          ChatUser.new(external_key: "user_#{el}", user: user),
-          ChatUser.new(external_key: 'john', user: User.find_or_create_by(external_key: 'john'))
+          ChatUser.new(user: user),
+          ChatUser.new(user: User.find_or_create_by(
+              external_key: 'john'
+          ))
       ])
     end}
 

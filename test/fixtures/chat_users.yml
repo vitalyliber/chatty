@@ -1,19 +1,16 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 maria:
-  external_key: maria
   chat: one
   unread_count: 1
   user: maria
 
 john:
-  external_key: john
   chat: one
   unread_count: 0
   user: john
 
 ron:
-  external_key: ron
   chat: two
   unread_count: 0
   user: ron

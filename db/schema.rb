@@ -16,7 +16,6 @@ ActiveRecord::Schema.define(version: 2018_12_23_021650) do
   enable_extension "plpgsql"
 
   create_table "chat_users", force: :cascade do |t|
-    t.string "external_key"
     t.bigint "chat_id"
     t.bigint "user_id"
     t.integer "unread_count", default: 0
@@ -33,11 +32,12 @@ ActiveRecord::Schema.define(version: 2018_12_23_021650) do
 
   create_table "messages", force: :cascade do |t|
     t.text "body"
-    t.string "external_key"
+    t.bigint "user_id"
     t.bigint "chat_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["chat_id"], name: "index_messages_on_chat_id"
+    t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -54,4 +54,5 @@ ActiveRecord::Schema.define(version: 2018_12_23_021650) do
   add_foreign_key "chat_users", "chats"
   add_foreign_key "chat_users", "users"
   add_foreign_key "messages", "chats"
+  add_foreign_key "messages", "users"
 end

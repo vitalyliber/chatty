@@ -2,15 +2,15 @@
 
 one:
   body: Hi
-  external_key: john
+  user: john
   chat: one
 
 two:
   body: Hello
-  external_key: maria
+  user: maria
   chat: one
 
 three:
   body: MyText
-  external_key: MyString
+  user: MyString
   chat: two

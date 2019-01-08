@@ -32,7 +32,7 @@ module ApplicationHelper
           avatar_url: 'https://api-server.com/image.jpg'
       )
       user.save!
-      user
     end
+    user
   end
 end
