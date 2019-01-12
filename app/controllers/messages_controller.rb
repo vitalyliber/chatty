@@ -26,8 +26,8 @@ class MessagesController < ApplicationController
     if err
       return render json: {errors: chat.errors}, status: :bad_request
     end
-    opponent = chat.opponent(current_user.id)
-    opponent.update(unread_count: 0)
+    me = chat.me(current_user.id)
+    me.update(unread_count: 0)
   end
 
   private

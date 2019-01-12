@@ -15,4 +15,8 @@ class Chat < ApplicationRecord
   def opponent(current_user_id)
     chat_users.select {|el| el.user.id != current_user_id}[0]
   end
+
+  def me(current_user_id)
+    chat_users.select {|el| el.user.id == current_user_id}[0]
+  end
 end

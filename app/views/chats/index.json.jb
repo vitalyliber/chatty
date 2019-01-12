@@ -1,9 +1,11 @@
 json = {}
 json[:chats] = @chat_users.map do |chat_user|
-  opponent = chat_user.chat.opponent(@current_user.id)
+  chat = chat_user.chat
+  opponent = chat.opponent(@current_user.id)
+  me = chat.me(@current_user.id)
   {
-      unread_count: opponent.unread_count,
-      updated_at: opponent.updated_at.iso8601,
+      unread_count: me.unread_count,
+      updated_at: chat.updated_at.iso8601,
       name: opponent.user.name,
       avatar_url: opponent.user.avatar_url,
       external_key: opponent.user.external_key,

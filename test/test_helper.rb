@@ -10,4 +10,11 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
+  def find_chat_by_users(users)
+    ChatUser
+        .where(user: users)
+        .select(:chat_id)
+        .group(:chat_id)
+        .having("count(*) = 2")[0].chat
+  end
 end
