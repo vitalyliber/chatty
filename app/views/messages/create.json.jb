@@ -1,0 +1,6 @@
+json = {
+    message: {
+        id: @message.id,
+    }
+}
+json

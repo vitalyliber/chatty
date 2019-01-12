@@ -8,16 +8,14 @@ class MessagesController < ApplicationController
   end
 
   def create
-    message = Message.new(message_params)
+    @message = Message.new(message_params)
     err, chat = find_or_create_chat
     if err
       return render json: {errors: chat.errors}, status: :bad_request
     end
-    message.chat = chat
-    if message.save
-      render json: {message: message}
-    else
-      render json: {errors: message.errors}, status: :bad_request
+    @message.chat = chat
+    unless @message.save
+      return render json: {errors: @message.errors}, status: :bad_request
     end
   end
 

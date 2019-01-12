@@ -81,6 +81,7 @@ class MessagesControllerTest < ActionDispatch::IntegrationTest
              Authorization: 'Bearer johnBearer'
          }
     assert_response :success
+    assert_equal JSON.parse(body), {"message" => {"id" => Message.last.id}}
     assert_broadcasts "chat_maria", 1
     assert_broadcasts "chat_john", 0
     assert_broadcast_on "chat_maria", {
