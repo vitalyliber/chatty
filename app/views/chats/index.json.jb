@@ -1,6 +1,6 @@
 json = {}
 json[:chats] = @chat_users.map do |chat_user|
-  opponent = chat_user.chat.chat_users.select {|el| el.user.id != @current_user.id}[0]
+  opponent = chat_user.chat.opponent(@current_user.id)
   {
       unread_count: opponent.unread_count,
       updated_at: opponent.updated_at.iso8601,

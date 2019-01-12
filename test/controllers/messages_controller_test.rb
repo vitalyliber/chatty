@@ -75,4 +75,19 @@ class MessagesControllerTest < ActionDispatch::IntegrationTest
     assert_equal 4, Message.count
   end
 
+  test "read messages" do
+    assert_equal chat_users(:maria).unread_count, 1
+    put read_messages_path,
+        params: {
+            chat: {
+                recipient_external_key: users(:maria).external_key
+            }
+        },
+        headers: {
+            Authorization: 'Bearer johnBearer'
+        }
+    assert_response :success
+    assert_equal chat_users(:maria).reload.unread_count, 0
+  end
+
 end

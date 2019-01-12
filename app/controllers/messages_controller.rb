@@ -21,6 +21,15 @@ class MessagesController < ApplicationController
     end
   end
 
+  def read
+    err, chat = find_or_create_chat
+    if err
+      return render json: {errors: chat.errors}, status: :bad_request
+    end
+    opponent = chat.opponent(current_user.id)
+    opponent.update(unread_count: 0)
+  end
+
   private
 
   def find_or_create_chat
