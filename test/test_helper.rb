@@ -17,4 +17,8 @@ class ActiveSupport::TestCase
         .group(:chat_id)
         .having("count(*) = 2")[0].chat
   end
+
+  def body_json
+    JSON.parse(body)
+  end
 end

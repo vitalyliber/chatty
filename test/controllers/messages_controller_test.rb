@@ -4,6 +4,11 @@ class MessagesControllerTest < ActionDispatch::IntegrationTest
   include ActionCable::TestHelper
 
   test "should get index" do
+    Message.create(
+        user: users(:john),
+        chat: chats(:one),
+        body: 'Ahaha'
+    )
     get messages_path,
         params: {
             chat: {
@@ -14,7 +19,32 @@ class MessagesControllerTest < ActionDispatch::IntegrationTest
             Authorization: 'Bearer mariaBearer'
         }
     assert_response :success
-    assert_equal 2, JSON.parse(body)['messages'].count
+    messages = body_json
+    assert_equal 3, messages['messages'].count
+    assert_equal 'Ahaha', messages['messages'][2]['body']
+    assert_equal 'Hello', messages['messages'][0]['body']
+  end
+
+  test "should get messages from id" do
+    Message.create(
+        user: users(:john),
+        chat: chats(:one),
+        body: 'Ahaha'
+    )
+    get messages_path,
+        params: {
+            chat: {
+                recipient_external_key: 'john'
+            },
+            id: Message.find_by_body('Hi').id
+        },
+        headers: {
+            Authorization: 'Bearer mariaBearer'
+        }
+    assert_response :success
+    messages = body_json
+    assert_equal 1, messages['messages'].count
+    assert_equal 'Hello', messages['messages'][0]['body']
   end
 
   test "should not create for the same user" do

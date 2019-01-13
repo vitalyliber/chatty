@@ -1,10 +1,18 @@
 class MessagesController < ApplicationController
   def index
+    limit = 30
     err, chat = find_or_create_chat
     if err
       return render json: {errors: chat.errors}, status: :bad_request
     end
-    render json: {messages: chat.messages}
+    messages =
+        chat
+            .messages
+            .try {|messages| params[:id] ? messages.where("id < ?", params[:id]) : messages}
+            .limit(limit)
+            .order(id: :desc)
+            .reverse
+    render json: {messages: messages}
   end
 
   def create
